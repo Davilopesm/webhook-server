@@ -9,3 +9,7 @@ node_modules
 
 # Ignore built ts files
 dist/**/*
+
+
+# Dynamo data
+my-dynamodb-data

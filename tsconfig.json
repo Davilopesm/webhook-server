@@ -1,15 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "outDir": "./dist",
+    "target": "ES2020",
     "module": "commonjs",
     "declaration": true,
     "noImplicitAny": true,
     "removeComments": true,
     "experimentalDecorators": true,
-    "rootDir": ".",
     "sourceMap": true,
     "listFiles": true,
     "newLine": "LF",
-    "noEmitOnError": true
+    "baseUrl": "./",
+    "noEmitOnError": true,
+    "rootDirs": [
+      "./src",
+      "./test"
+    ],
   },
 }
