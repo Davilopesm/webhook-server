@@ -1,4 +1,4 @@
-import { Webhook } from "../../src/core/domain/webhook/webhook";
+import { Webhook } from "../../src/core/domain/webhook/entities/webhook";
 import LocalStore from "../../src/infrastructure/localStore";
 
 describe("LocalStore", () => {

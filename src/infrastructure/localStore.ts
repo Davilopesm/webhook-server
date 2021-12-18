@@ -1,4 +1,4 @@
-import { Webhook } from "../core/domain/webhook/webhook";
+import { Webhook } from "../core/domain/webhook/entities/webhook";
 
 export default class LocalStore {
   private static instance: LocalStore;
@@ -14,14 +14,19 @@ export default class LocalStore {
   }
 
   storeWebhook(webhook: Webhook): void {
-    if(this.storedItems.includes(webhook)) return;
+    if(this.alreadyExists(webhook)) {
+      return;
+    }
     console.log("Storing new webhook: ", webhook);
     this.storedItems.push(webhook);
   }
 
   getWebhooks(): Webhook[] {
-    console.log("Getting webhook: ", JSON.stringify(this.storedItems));
     return this.storedItems;
+  }
+
+  private alreadyExists(webhook: Webhook): Webhook {
+    return this.storedItems.find(element => (element.token === webhook.token && element.url === webhook.url));
   }
 
 }

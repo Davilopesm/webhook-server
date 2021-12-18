@@ -1,4 +1,4 @@
-import { Webhook } from "./webhook";
+import { Webhook } from "./entities/webhook";
 import LocalStore from "../../../infrastructure/localStore";
 
 export class CreateWebhookUseCase {
@@ -8,9 +8,5 @@ export class CreateWebhookUseCase {
     const webhookToCreate = new Webhook(url, token);
 
     return this.store.storeWebhook(webhookToCreate);
-  }
-
-  async getWebhooks(): Promise<Webhook[]> {
-    return this.store.getWebhooks();
   }
 }

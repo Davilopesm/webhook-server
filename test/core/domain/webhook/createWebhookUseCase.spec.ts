@@ -1,10 +1,10 @@
 import LocalStore from "../../../../src/infrastructure/localStore";
 import { CreateWebhookUseCase } from "../../../../src/core/domain/webhook/createWebhookUseCase";
-import { Webhook } from "../../../../src/core/domain/webhook/webhook";
+import { Webhook } from "../../../../src/core/domain/webhook/entities/webhook";
 
 describe("CreateWebhookUseCase", () => {
   describe("execute", () => {
-    it("Correctly calls store to create new webhooks from given parameters", async () => {
+    it("Correctly calls store to create new webhook from given parameters", async () => {
       const store = new LocalStore();
       store.storeWebhook = jest.fn();
       const useCase = new CreateWebhookUseCase(store);

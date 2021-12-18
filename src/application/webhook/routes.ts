@@ -1,31 +1,29 @@
 import { Router, Request, Response } from "express";
+import WebhookError from "../../core/domain/webhook/entities/webhookError";
 import { WebhookController } from "./controller";
-import { webhookValidator } from "./validator";
+import { webhookCreateValidator, webhookTriggerValidator } from "./validator";
 const router = Router();
 
-router.post('/', webhookValidator, async (req: Request, res: Response, next) => {
+router.post('/', webhookCreateValidator, async (req: Request, res: Response, next) => {
   try {
-    console.log(req.body);
     await new WebhookController().createWebhook(req.body.url, req.body.token);
-    res.status(201).json({
-      message: 'Webhook created successfully'
-    });
+    res.sendStatus(201);
   } catch (error) {
-    res.status(500 || error.statusCode).json({
-      error: "Internal Server Error",
+    res.status(error.statusCode || 500).json({
       message: error.message
     });
   }
 });
 
-router.get('/test', async (req: Request, res: Response, next) => {
+router.post('/test', webhookTriggerValidator, async (req: Request, res: Response, next) => {
   try {
-    const response = await new WebhookController().getWebhook();
-    console.log("Finished get, returning: ", response);
-    res.status(200).json(response);
+    const response = await new WebhookController().triggerWebhooks(req.body);
+    if(response) {
+      res.status(207).json(response);
+    }
+    res.sendStatus(204);
   } catch (error) {
-    res.status(500 || error.statusCode).json({
-      error: "Internal Server Error",
+    res.status(error.statusCode || 500).json({
       message: error.message
     });
   }
